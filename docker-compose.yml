@@ -1,0 +1,33 @@
+version: '2'
+services:
+  app: &app_base
+    build: .
+    environment:
+      RAILS_ENV: development
+    ports:
+      - 3333:3333
+    command: bundle exec rails s -p 3333 -b '0.0.0.0'
+    volumes:
+      - .:/usr/src/andromeda_api
+    links:
+      - mysql
+    tty: true
+    stdin_open: true
+  spring:
+    <<: *app_base
+    command: "bundle exec spring server"
+    ports: []
+    tty: false
+    stdin_open: false
+  mysql:
+    image: mysql
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    volumes_from:
+      - datastore
+    container_name: andromeda_db
+  datastore:
+    image: "busybox"
+    container_name: andromeda_datastore
+    volumes:
+      - /var/lib/mysql
