@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161119153224) do
+ActiveRecord::Schema.define(version: 20161129032150) do
 
   create_table "action_types", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name",       null: false
@@ -50,8 +50,6 @@ ActiveRecord::Schema.define(version: 20161119153224) do
     t.datetime "created_at",                                         null: false
     t.datetime "updated_at",                                         null: false
     t.index ["article_id"], name: "index_article_histories_on_article_id", using: :btree
-    t.index ["article_type_id"], name: "index_article_histories_on_article_type_id", using: :btree
-    t.index ["user_id"], name: "index_article_histories_on_user_id", using: :btree
   end
 
   create_table "article_tags", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -130,9 +128,7 @@ ActiveRecord::Schema.define(version: 20161119153224) do
   add_foreign_key "actions", "users"
   add_foreign_key "article_authors", "articles"
   add_foreign_key "article_authors", "users"
-  add_foreign_key "article_histories", "article_types"
   add_foreign_key "article_histories", "articles"
-  add_foreign_key "article_histories", "users"
   add_foreign_key "article_tags", "articles"
   add_foreign_key "article_tags", "tags"
   add_foreign_key "articles", "article_types"
