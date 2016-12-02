@@ -61,6 +61,11 @@ GEM
     concurrent-ruby (1.0.2)
     diff-lcs (1.2.5)
     erubis (2.7.0)
+    factory_girl (4.7.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.7.0)
+      factory_girl (~> 4.7.0)
+      railties (>= 3.0.0)
     ffi (1.9.14)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
@@ -92,6 +97,8 @@ GEM
     pry-byebug (3.4.0)
       byebug (~> 9.0)
       pry (~> 0.10)
+    pry-rails (0.3.4)
+      pry (>= 0.9.10)
     puma (3.6.0)
     rack (2.0.1)
     rack-cors (0.4.0)
@@ -172,9 +179,11 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   byebug
   capistrano-rails
+  factory_girl_rails
   listen (~> 3.0.5)
   mysql2 (>= 0.3.18, < 0.5)
   pry-byebug
+  pry-rails
   puma (~> 3.0)
   rack-cors
   rails (~> 5.0.0)
