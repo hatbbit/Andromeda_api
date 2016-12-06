@@ -1,0 +1,7 @@
+test:
+  encoding: utf8
+  adapter: mysql2
+  database: andromeda_api_test
+  username:
+  password:
+  host: localhost
