@@ -52,7 +52,7 @@ RSpec.describe User, type: :model do
       describe "length" do
         context "when length is 255" do
           it "should save" do
-            user = User.new(name: "a"*255, email: "tanaka@example.com", email_confirmation: "tanaka@example.com", password_digest: "password")
+            user = User.new(name: "a"*255, email: "tanaka@example.com", email_confirmation: "tanaka@example.com", password: "password", password_confirmation: "password")
             ret = user.save
             expect(ret).to be_truthy
           end
@@ -60,7 +60,7 @@ RSpec.describe User, type: :model do
 
         context "when length is 256" do
           it "should not save" do
-            user = User.new(name: "a"*256, email: "tanaka@example.com", email_confirmation: "tanaka@example.com", password_digest: "password")
+            user = User.new(name: "a"*256, email: "tanaka@example.com", email_confirmation: "tanaka@example.com", password: "password", password_confirmation: "password")
             ret = user.save
             expect(ret).to be_falsy
           end
@@ -70,7 +70,7 @@ RSpec.describe User, type: :model do
       describe "presence" do
         context "when name is not empty" do
           it "should save" do
-            user = User.new(name: "tanaka", email: "tanaka@example.com", email_confirmation: "tanaka@example.com", password_digest: "password")
+            user = User.new(name: "tanaka", email: "tanaka@example.com", email_confirmation: "tanaka@example.com", password: "password", password_confirmation: "password")
             ret = user.save
             expect(ret).to be_truthy
           end
@@ -78,7 +78,7 @@ RSpec.describe User, type: :model do
 
         context "when name is empty" do
           it "should not save" do
-            user = User.new(name: "", email: "tanaka@example.com", email_confirmation: "tanaka@example.com", password_digest: "password")
+            user = User.new(name: "", email: "tanaka@example.com", email_confirmation: "tanaka@example.com", password: "password", password_confirmation: "password")
             ret = user.save
             expect(ret).to be_falsy
           end
@@ -90,7 +90,7 @@ RSpec.describe User, type: :model do
       describe "email_confirmation" do
         context "when email == email_confirmation" do
           it "should save" do
-            user = User.new(email: "tanaka@example.com", email_confirmation: "tanaka@example.com", name: "tanaka", password_digest: "password")
+            user = User.new(email: "tanaka@example.com", email_confirmation: "tanaka@example.com", name: "tanaka", password: "password", password_confirmation: "password")
             ret = user.save
             expect(ret).to be_truthy
           end
@@ -98,7 +98,7 @@ RSpec.describe User, type: :model do
 
         context "when email != email_confirmation" do
           it "should not save" do
-            user = User.new(email: "tanaka@example.com", email_confirmation: "suzuki@example.com", name: "tanaka", password_digest: "password")
+            user = User.new(email: "tanaka@example.com", email_confirmation: "suzuki@example.com", name: "tanaka", password: "password", password_confirmation: "password")
             ret = user.save
             expect(ret).to be_falsy
           end
@@ -108,7 +108,7 @@ RSpec.describe User, type: :model do
       describe "length" do
         context "when length is 255" do
           it "should save" do
-            user = User.new(email: "a"*255, email_confirmation: "a"*255, name: "tanaka", password_digest: "password")
+            user = User.new(email: "a"*255, email_confirmation: "a"*255, name: "tanaka", password: "password", password_confirmation: "password")
             ret = user.save
             expect(ret).to be_truthy
           end
@@ -116,7 +116,7 @@ RSpec.describe User, type: :model do
 
         context "when length is 256" do
           it "should not save" do
-            user = User.new(email: "a"*256, email_confirmation: "a"*256, name: "tanaka", password_digest: "password")
+            user = User.new(email: "a"*256, email_confirmation: "a"*256, name: "tanaka", password: "password", password_confirmation: "password")
             ret = user.save
             expect(ret).to be_falsy
           end
@@ -126,7 +126,7 @@ RSpec.describe User, type: :model do
       describe "presence" do
         context "when email is not empty" do
           it "should save" do
-            user = User.new(email: "tanaka@example.com", email_confirmation: "tanaka@example.com", name: "tanaka", password_digest: "password")
+            user = User.new(email: "tanaka@example.com", email_confirmation: "tanaka@example.com", name: "tanaka", password: "password", password_confirmation: "password")
             ret = user.save
             expect(ret).to be_truthy
           end
@@ -134,7 +134,7 @@ RSpec.describe User, type: :model do
 
         context "when email is empty" do
           it "should not save" do
-            user = User.new(email: "", email_confirmation: "tanaka@example.com", name: "tanaka", password_digest: "password")
+            user = User.new(email: "", email_confirmation: "tanaka@example.com", name: "tanaka", password: "password", password_confirmation: "password")
             ret = user.save
             expect(ret).to be_falsy
           end
@@ -142,7 +142,53 @@ RSpec.describe User, type: :model do
 
         context "when email_confirmation is empty" do
           it "should not save" do
-            user = User.new(email: "tanaka@example.com", email_confirmation: "", name: "tanaka", password_digest: "password")
+            user = User.new(email: "tanaka@example.com", email_confirmation: "", name: "tanaka", password: "password", password_confirmation: "password")
+            ret = user.save
+            expect(ret).to be_falsy
+          end
+        end
+      end
+    end
+
+    describe "password" do 
+      describe "password_confirmation" do
+        context "when password == password_confirmation" do
+          it "should save" do
+            user = User.new(password: "password", password_confirmation: "password", email: "tanaka@example.com", email_confirmation: "tanaka@example.com", name: "tanaka")
+            ret = user.save
+            expect(ret).to be_truthy
+          end
+        end
+
+        context "when password != password_confirmation" do
+          it "should not save" do
+            user = User.new(password: "password", password_confirmation: "password222", email: "tanaka@example.com", email_confirmation: "suzuki@example.com", name: "tanaka")
+            ret = user.save
+            expect(ret).to be_falsy
+          end
+        end
+      end
+
+      describe "presence" do
+        context "when password is not empty" do
+          it "should save" do
+            user = User.new(password: "password", password_confirmation: "password", email: "tanaka@example.com", email_confirmation: "tanaka@example.com", name: "tanaka")
+            ret = user.save
+            expect(ret).to be_truthy
+          end
+        end
+
+        context "when password is empty" do
+          it "should not save" do
+            user = User.new(password: "", password_confirmation: "password", email: "", email_confirmation: "tanaka@example.com", name: "tanaka")
+            ret = user.save
+            expect(ret).to be_falsy
+          end
+        end
+
+        context "when password_confirmation is empty" do
+          it "should not save" do
+            user = User.new(password: "password", password_confirmation: "", email: "tanaka@example.com", email_confirmation: "", name: "tanaka")
             ret = user.save
             expect(ret).to be_falsy
           end
