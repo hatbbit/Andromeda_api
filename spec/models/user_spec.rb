@@ -140,13 +140,30 @@ RSpec.describe User, type: :model do
           end
         end
 
-        context "when email_confirmation is empty" do
+        context "when email_confirmation is not empty on create" do
+          it "should save" do
+            user = User.new(email: "tanaka@example.com", email_confirmation: "tanaka@example.com", name: "tanaka", password: "password", password_confirmation: "password")
+            ret = user.save
+            expect(ret).to be_truthy
+          end
+        end
+
+        context "when email_confirmation is empty on create" do
           it "should not save" do
             user = User.new(email: "tanaka@example.com", email_confirmation: "", name: "tanaka", password: "password", password_confirmation: "password")
             ret = user.save
             expect(ret).to be_falsy
           end
         end
+
+        context "when email_confirmation is empty on update" do
+          it "should save" do
+            @user = User.find(user.id)
+            ret = @user.update(name: "changed")
+            expect(ret).to be_truthy
+          end
+        end
+
       end
     end
 
