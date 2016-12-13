@@ -56,4 +56,29 @@ RSpec.describe ArticleType, type: :model do
       end
     end
   end
+
+  describe "enum" do
+    describe "types" do
+      context "when find by id 1" do
+        it "should return 'blog'" do
+          at = ArticleType.find(1)
+          expect(at.name).to eq("blog")
+        end
+      end
+
+      context "when find by id 2" do
+        it "should return 'url'" do
+          at = ArticleType.find(2)
+          expect(at.name).to eq("url")
+        end
+      end
+
+      context "when find by id 3" do
+        it "should return 'book'" do
+          at = ArticleType.find(3)
+          expect(at.name).to eq("book")
+        end
+      end
+    end
+  end
 end
